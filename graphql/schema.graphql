@@ -73,12 +73,12 @@ type Chapter {
 type Mutation {
     login(email: String!, password: String!): AuthPayload!  @field(resolver: "App\\GraphQL\\Mutations\\Login")
     register(input: RegisterInput!): AuthPayload @field(resolver: "App\\GraphQL\\Mutations\\RegisterMutation")
-    CreateTask(input: CreateTaskInput!): Task @field(resolver: "App\\GraphQL\\Mutations\\CreateTask")
-    UpdateTask(input: CreateTaskInput!): Task @field(resolver: "App\\GraphQL\\Mutations\\UpdateTask")
-    DeleteTask(id: ID!): Task @field(resolver: "App\\GraphQL\\Mutations\\DeleteTask")
+    CreateTask(input: CreateTaskInput!): Task @field(resolver: "App\\GraphQL\\Mutations\\CreateTask") @guard
+    UpdateTask(input: CreateTaskInput!): Task @field(resolver: "App\\GraphQL\\Mutations\\UpdateTask") @guard
+    DeleteTask(id: ID!): Task @field(resolver: "App\\GraphQL\\Mutations\\DeleteTask")                 @guard
     CreateChapter(input: CreateChapterInput!): Chapter @field(resolver: "App\\GraphQL\\Mutations\\CreateChapter")
-    UpdateChapter(input: CreateChapterInput!): Chapter @field(resolver: "App\\GraphQL\\Mutations\\UpdateChapter")
-    DeleteChapter(id: ID!): Chapter @field(resolver: "App\\GraphQL\\Mutations\\DeleteChapter")
+    UpdateChapter(input: CreateChapterInput!): Chapter @field(resolver: "App\\GraphQL\\Mutations\\UpdateChapter") @guard
+    DeleteChapter(id: ID!): Chapter @field(resolver: "App\\GraphQL\\Mutations\\DeleteChapter") @guard
 }
 
 input CreateChapterInput {
@@ -89,7 +89,6 @@ input CreateTaskInput {
     task: String!
     status: TaskStatus!
     chapter_id: ID!
-    user_id: ID!
 }
 
 type AuthPayload {
