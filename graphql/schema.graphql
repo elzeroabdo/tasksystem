@@ -17,6 +17,11 @@ type Query {
       "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
       name: String @where(operator: "like")
     ): [User!]! @paginate(defaultCount: 10)
+    tasks: [Task!]! @all
+    chapters: [Chapter!]! @all
+    taskById(id: ID! @eq): Task @find
+    taskByChapter(chapter_id: ID! @eq): [Task!]! @all
+
 }
 
 "Account of a person who utilizes this application."
@@ -41,9 +46,50 @@ type User {
 }
 
 
+type Task {
+    id: ID!
+    task:String!
+    status: TaskStatus!
+    chapter: Chapter! @belongsTo
+    user : User! @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+enum TaskStatus {
+    pending
+    in_progress
+    completed
+}
+
+type Chapter {
+    id: ID!
+    chapter:String!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+
 type Mutation {
     login(email: String!, password: String!): AuthPayload!  @field(resolver: "App\\GraphQL\\Mutations\\Login")
-     register(input: RegisterInput!): AuthPayload @field(resolver: "App\\GraphQL\\Mutations\\RegisterMutation")
+    register(input: RegisterInput!): AuthPayload @field(resolver: "App\\GraphQL\\Mutations\\RegisterMutation")
+    CreateTask(input: CreateTaskInput!): Task @field(resolver: "App\\GraphQL\\Mutations\\CreateTask")
+    UpdateTask(input: CreateTaskInput!): Task @field(resolver: "App\\GraphQL\\Mutations\\UpdateTask")
+    DeleteTask(id: ID!): Task @field(resolver: "App\\GraphQL\\Mutations\\DeleteTask")
+    CreateChapter(input: CreateChapterInput!): Chapter @field(resolver: "App\\GraphQL\\Mutations\\CreateChapter")
+    UpdateChapter(input: CreateChapterInput!): Chapter @field(resolver: "App\\GraphQL\\Mutations\\UpdateChapter")
+    DeleteChapter(id: ID!): Chapter @field(resolver: "App\\GraphQL\\Mutations\\DeleteChapter")
+}
+
+input CreateChapterInput {
+    chapter: String!
+}
+
+input CreateTaskInput {
+    task: String!
+    status: TaskStatus!
+    chapter_id: ID!
+    user_id: ID!
 }
 
 type AuthPayload {
