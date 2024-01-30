@@ -15,7 +15,6 @@ final class CreateChapter
      */
     public function __invoke($_, array $args): Chapter
     {
-        // Validate input or perform any necessary checks
 
         // Create a new chapter
         $chapter = new Chapter();

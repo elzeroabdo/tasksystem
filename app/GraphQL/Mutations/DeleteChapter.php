@@ -17,7 +17,7 @@ final class DeleteChapter
      */
     public function __invoke($_, array $args): array
     {
-        // Validate input or perform any necessary checks
+
 
         // Retrieve the chapter by ID
         $chapter = Chapter::find($args['id']);

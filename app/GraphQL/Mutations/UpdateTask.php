@@ -17,7 +17,6 @@ final class UpdateTask
      */
     public function __invoke($_, array $args): Task
     {
-        // Validate input or perform any necessary checks
 
         // Retrieve the task by ID
         $task = Task::find($args['id']);

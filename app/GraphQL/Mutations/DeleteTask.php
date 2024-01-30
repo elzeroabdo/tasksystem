@@ -17,7 +17,6 @@ final class DeleteTask
      */
     public function __invoke($_, array $args): array
     {
-        // Validate input or perform any necessary checks
 
         // Retrieve the task by ID
         $task = Task::find($args['id']);

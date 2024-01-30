@@ -17,7 +17,6 @@ final class UpdateChapter
      */
     public function __invoke($_, array $args): Chapter
     {
-        // Validate input or perform any necessary checks
 
         // Retrieve the chapter by ID
         $chapter = Chapter::find($args['id']);
