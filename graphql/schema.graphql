@@ -20,6 +20,7 @@ type Query {
     tasks: [Task!]! @all
     chapters: [Chapter!]! @all
     taskById(id: ID! @eq): Task @find
+    TaskByUser(user_id: ID! @eq): [Task!]! @all
     taskByChapter(chapter_id: ID! @eq): [Task!]! @all
 
 }
