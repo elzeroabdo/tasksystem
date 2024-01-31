@@ -19,8 +19,11 @@ final class Login
         if(!$token = JWTAuth::attempt($args)) {
             throw new \Error('Invalid credentials.');
         }
+        // return ttl and token
+        $user = Auth::user();
+        $ttl=JWTAuth::factory()->getTTL();
 
         // Return the JWT token and authenticated user
-        return ['token' => $token, 'user' => Auth::user()];
+        return ['token' => $token, 'ttl' => $ttl, 'user' => $user];
     }
 }

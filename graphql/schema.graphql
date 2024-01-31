@@ -95,7 +95,7 @@ input CreateTaskInput {
 type AuthPayload {
     token: String!
     user: User!
-    expires_at: String!
+    ttl: Int!
 }
 
 input RegisterInput {
